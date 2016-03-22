@@ -12,7 +12,7 @@
 // The address will be different depending on whether you let
 // the ADDR pin float (addr 0x39), or tie it to ground or vcc. In those cases
 // use TSL2561_ADDR_LOW (0x29) or TSL2561_ADDR_HIGH (0x49) respectively
-TSL2561 tsl(TSL2561_ADDR_FLOAT); 
+TSL2561 tsl(TSL2561_ADDR_LOW); 
 
 void setup(void) {
   Serial.begin(9600);
@@ -45,7 +45,8 @@ void loop(void) {
   //uint16_t x = tsl.getLuminosity(TSL2561_FULLSPECTRUM);
   //uint16_t x = tsl.getLuminosity(TSL2561_INFRARED);
   
-  Serial.println(x, DEC);
+  // Raw Value
+  //Serial.println(x, DEC);
 
   // More advanced data read example. Read 32 bits with top 16 bits IR, bottom 16 bits full spectrum
   // That way you can do whatever math and comparisons you want!
@@ -53,11 +54,11 @@ void loop(void) {
   uint16_t ir, full;
   ir = lum >> 16;
   full = lum & 0xFFFF;
-  Serial.print("IR: "); Serial.print(ir);   Serial.print("\t\t");
-  Serial.print("Full: "); Serial.print(full);   Serial.print("\t");
-  Serial.print("Visible: "); Serial.print(full - ir);   Serial.print("\t");
+  //Serial.print("IR: "); Serial.print(ir);   Serial.print("\t\t");
+  //Serial.print("Full: "); Serial.print(full);   Serial.print("\t");
+  //Serial.print("Visible: "); Serial.print(full - ir);   Serial.print("\t");
   
   Serial.print("Lux: "); Serial.println(tsl.calculateLux(full, ir));
   
-  delay(100); 
+  delay(2000); 
 }
